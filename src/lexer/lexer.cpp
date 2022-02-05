@@ -25,4 +25,54 @@ static int gettok() {
     while (std::isspace(LastChar)) {
         LastChar = getchar();
     }
+
+    if (std::isalpha(LastChar)) {
+        IdentifierStr = std::to_string(LastChar);
+
+        while (std::isalnum((LastChar = getchar())))
+            IdentifierStr += std::to_string(LastChar);
+
+        if (IdentifierStr == "def")
+            return tok_def;
+
+        if (IdentifierStr == "extern")
+            return tok_extern;
+
+        return tok_identifier;
+    }
+
+    /*
+     * Note that this isn’t doing sufficient error checking:
+     * it will incorrectly read “1.23.45.67” and handle it as if you typed
+     * in “1.23”. Feel free to extend it! Next we handle comments:
+     */
+    if (std::isdigit(LastChar) || LastChar == '.') {
+        std::string NumStr;
+        do {
+            NumStr += LastChar;
+            LastChar = getchar();
+        } while (std::isdigit(LastChar) || LastChar == '.');
+
+        NumVal = std::strtod(NumStr.c_str(), nullptr);
+
+        return tok_number;
+    }
+
+    if (LastChar == '#') {
+        do {
+            LastChar = getchar();
+        } while (LastChar != EOF && LastChar != '\n' && LastChar != '\r');
+
+        if (LastChar != EOF)
+            return gettok();
+    }
+
+    // check for end of file, don't eat the EOF.
+    if (LastChar == EOF) {
+        return tok_eof;
+    }
+
+    int ThisChar = LastChar;
+    LastChar = getchar();
+    return ThisChar;
 }
