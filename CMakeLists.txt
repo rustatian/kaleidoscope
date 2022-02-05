@@ -10,4 +10,4 @@ project(kaleidoscope)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(main src/main.cpp src/lexer/lexer.cpp)
+add_executable(main src/main.cpp src/lexer/lexer.cpp src/ast/ast.cpp src/ast/ast.h)
