@@ -1,7 +1,8 @@
 #include <string>
 #include "lexer.h"
 
-enum Token {
+enum Token
+{
     tok_eof = -1,
 
     // commands
@@ -14,19 +15,20 @@ enum Token {
 };
 
 static std::string IdentifierStr; // filled in if tok_identifier
-static double NumVal; // filled in if tok_number
+static double NumVal;             // filled in if tok_number
 
 // returns the next token from std input
-static int gettok() {
+static int gettok()
+{
     static int LastChar = ' ';
 
-    // skip whitespaces
-
-    while (std::isspace(LastChar)) {
+    while (std::isspace(LastChar))
+    {
         LastChar = getchar();
     }
 
-    if (std::isalpha(LastChar)) {
+    if (std::isalpha(LastChar))
+    {
         IdentifierStr = std::to_string(LastChar);
 
         while (std::isalnum((LastChar = getchar())))
@@ -46,9 +48,11 @@ static int gettok() {
      * it will incorrectly read “1.23.45.67” and handle it as if you typed
      * in “1.23”. Feel free to extend it! Next we handle comments:
      */
-    if (std::isdigit(LastChar) || LastChar == '.') {
+    if (std::isdigit(LastChar) || LastChar == '.')
+    {
         std::string NumStr;
-        do {
+        do
+        {
             NumStr += LastChar;
             LastChar = getchar();
         } while (std::isdigit(LastChar) || LastChar == '.');
@@ -58,8 +62,10 @@ static int gettok() {
         return tok_number;
     }
 
-    if (LastChar == '#') {
-        do {
+    if (LastChar == '#')
+    {
+        do
+        {
             LastChar = getchar();
         } while (LastChar != EOF && LastChar != '\n' && LastChar != '\r');
 
@@ -68,7 +74,8 @@ static int gettok() {
     }
 
     // check for end of file, don't eat the EOF.
-    if (LastChar == EOF) {
+    if (LastChar == EOF)
+    {
         return tok_eof;
     }
 

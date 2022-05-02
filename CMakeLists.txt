@@ -9,5 +9,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.22)
 project(kaleidoscope)
 
 set(CMAKE_CXX_STANDARD 20)
+set(SOURCES src/ast/ast.h src/ast/ast.cpp src/lexer/lexer.h src/lexer/lexer.cpp src/parser/parser.cpp src/parser/parser.h)
+target_include_directories(kaleidoscope PRIVATE )
 
-add_executable(main src/main.cpp src/lexer/lexer.cpp src/ast/ast.cpp src/ast/ast.h)
+add_executable(kaleidoscope src/main.cpp src/ast/ast.cpp src/lexer/lexer.cpp src/parser/parser.cpp)

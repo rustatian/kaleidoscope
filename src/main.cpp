@@ -1,9 +1,10 @@
-//
-// Created by valery on 03/02/2022.
-//
-
 #include "main.h"
+#include "ast.h"
+#include "lexer.h"
+#include "parser.h"
 
 int main() {
+    auto tok = gettok();
+    printf("%d", tok);
     return 0;
 }
